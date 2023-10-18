@@ -1,11 +1,8 @@
 ## Usage
-
-Set up a workflow in *.github/workflows/crowdin.yml* (or add a job to your existing workflows).
-
 Read the [Configuring a workflow](https://help.github.com/en/articles/configuring-a-workflow) article for more details on creating and setting up GitHub workflows.
 
 ```yaml
-name: Crowdin Action
+name: Mevisoft Action
 
 on:
   push:
@@ -97,59 +94,3 @@ In case you don’t want to download translations from Crowdin (`download_transl
     gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
     gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
 ```
-
-For more detailed descriptions of these options, see [`action.yml`](https://github.com/crowdin/github-action/blob/master/action.yml).
-
-> **Note**
-> The `base_url` is required For Crowdin Enterprise and should be passed in the following way: `base_url: 'https://{organization-name}.api.crowdin.com'`
-
-### Crowdin CLI command
-
-You can also run any other Crowdin CLI command by specifying the `command` and `command_args` _(optional)_ options. For example:
-
-```yaml
-- name: crowdin action
-  uses: crowdin/github-action@v1
-  with:
-    command: 'pre-translate'
-    command_args: '-l uk --method tm --branch main'
-```
-
-To see the full list of available commands, visit the [official documentation](https://crowdin.github.io/crowdin-cli/).
-
-### Crowdin configuration file
-
-If your workflow file specifies the `config` property, you'll need to add the following to your [Crowdin configuration file](https://support.crowdin.com/configuration-file/) (e.g. `crowdin.yml`):
-
-```yml
-project_id_env: CROWDIN_PROJECT_ID
-api_token_env: CROWDIN_PERSONAL_TOKEN
-```
-
-When the workflow runs, the real values of your token and project ID will be injected into the config using the secrets in the environment.
-
-## Permissions
-
-In order to push translations and create pull requests, the Crowdin GitHub Action requires the `GITHUB_TOKEN` to have the write permission on the `content` and `pull-requests`.
-
-In case you want to use an [automatic GitHub authentication token](https://docs.github.com/en/actions/security-guides/automatic-token-authentication), you need to assign the [`write` permission to your job](https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs) and [allow GH Actions to create Pull Requests](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#preventing-github-actions-from-creating-or-approving-pull-requests).
-
-## Contributing
-
-If you would like to contribute please read the [Contributing](/CONTRIBUTING.md) guidelines.
-
-## Seeking Assistance
-
-If you find any problems or would like to suggest a feature, please feel free to file an issue on GitHub at [Issues Page](https://github.com/crowdin/github-action/issues).
-
-## License
-
-<pre>
-The Crowdin GitHub Action is licensed under the MIT License.
-See the LICENSE file distributed with this work for additional
-information regarding copyright ownership.
-
-Except as contained in the LICENSE file, the name(s) of the above copyright
-holders shall not be used in advertising or otherwise to promote the sale,
-use or other dealings in this Software without prior written authorization.
-</pre>
