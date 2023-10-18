@@ -145,10 +145,6 @@ push_to_branch() {
   git config --global user.email "${INPUT_GITHUB_USER_EMAIL}"
   git config --global user.name "${INPUT_GITHUB_USER_NAME}"
 
-  if [ "$INPUT_SKIP_REF_CHECKOUT" != true ] && [ ${GITHUB_REF#refs/heads/} != $GITHUB_REF ]; then
-    git checkout "${GITHUB_REF#refs/heads/}"
-  fi
-
   if [ -n "$(git show-ref refs/heads/${BRANCH})" ]; then
     git checkout "${BRANCH}"
   else
@@ -204,7 +200,7 @@ setup_commit_signing() {
 
 get_branch_available_options() {
   for OPTION in "$@" ; do
-    if echo "$OPTION" | egrep -vq "^(--dryrun|--branch|--source|--translation)"; then
+    if echo "$OPTION" | egrep -vq "^(--dryrun|--branch)"; then
       AVAILABLE_OPTIONS="${AVAILABLE_OPTIONS} ${OPTION}"
     fi
   done
