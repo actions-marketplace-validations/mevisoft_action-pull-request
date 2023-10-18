@@ -1,0 +1,127 @@
+name: 'mevisoft-action'
+
+description: 'This action allows you to manage and synchronize localization resources with your Mevisoft project'
+
+branding:
+  icon: 'refresh-cw'
+  color: 'green'
+
+inputs:
+  push_builds:
+    description: 'Push downloaded translations to the branch'
+    default: 'true'
+    required: false
+  commit_message:
+    description: 'Commit message for download translations'
+    default: 'New Mevisoft translations by GitHub Action'
+    required: false
+  pull_request_branch_name:
+    description: 'To download translations to the specified version branch'
+    default: 'l10n_mevisoft_action'
+    required: false
+  create_pull_request:
+    description: 'Create pull request after pushing to branch'
+    default: 'true'
+    required: false
+  pull_request_title:
+    description: 'The title of the new pull request'
+    default: 'New Mevisoft translations by GitHub Action'
+    required: false
+  pull_request_body:
+    description: 'The contents of the pull request'
+    required: false
+  pull_request_assignees:
+    description: 'Add up to 10 assignees to the created pull request (separated by comma)'
+    required: false
+  pull_request_reviewers:
+    description: 'Usernames of people from whom a review is requested for this pull request (separated by comma)'
+    required: false
+  pull_request_team_reviewers:
+    description: 'Team slugs from which a review is requested for this pull request (separated by comma)'
+    required: false
+  pull_request_labels:
+    description: 'To add labels for created pull request'
+    required: false
+  pull_request_base_branch_name:
+    description: 'Create pull request to specified branch instead of default one'
+    required: false
+  download_translations_args:
+    description: 'Additional arguments which will be passed to the `download translations` cli command'
+    default: ''
+    required: false
+  skip_ref_checkout:
+    description: 'Skip default git checkout on GITHUB_REF'
+    default: 'false'
+    required: false
+
+  # branch options
+  add_mevisoft_branch:
+    description: 'Option to create specified version branch in your Mevisoft project'
+    deprecationMessage: 'This option is deprecated. Please use `command: branch add name` instead.'
+    required: false
+  new_branch_title:
+    description: 'Use to provide more details for translators. Title is available in UI only'
+    deprecationMessage: 'This option is deprecated. Please use `command: branch add name` instead.'
+    required: false
+  new_branch_export_pattern:
+    description: 'Branch export pattern. Defines branch name and path in resulting translations bundle'
+    deprecationMessage: 'This option is deprecated. Please use `command: branch add name` instead.'
+    required: false
+  new_branch_priority:
+    description: 'Defines priority level for each branch [LOW, NORMAL, HIGH]'
+    deprecationMessage: 'This option is deprecated. Please use `command: branch add name` instead.'
+    required: false
+  delete_mevisoft_branch:
+    description: 'Option to remove specified version branch in your Mevisoft project'
+    deprecationMessage: 'This option is deprecated. Please use `command: branch delete name` instead.'
+    required: false
+
+  # global options
+  mevisoft_branch_name:
+    description: 'Option to upload or download files to the specified version branch in your Mevisoft project'
+    required: false
+  identity:
+    description: 'Option to specify a path to user-specific credentials, without / at the beginning'
+    required: false
+  dryrun_action:
+    description: 'Option to preview the list of managed files'
+    default: 'false'
+    required: false
+
+  # GitHub (Enterprise) configuration
+  github_base_url:
+    description: 'Option to configure the base URL of GitHub server, if using GHE.'
+    default: 'github.com'
+    required: false
+  github_api_base_url:
+    description: 'Options to configure the base URL of GitHub server for API requests, if using GHE and different from api.github_base_url.'
+    required: false
+  github_user_name:
+    description: 'Option to configure GitHub user name on commits.'
+    default: 'Mevisoft Bot'
+    required: false
+  github_user_email:
+    description: 'Option to configure GitHub user email on commits.'
+    default: 'support+bot@mevisoft.com'
+    required: false
+  gpg_private_key:
+    description: 'GPG private key in ASCII-armored format'
+    required: false
+  gpg_passphrase:
+    description: 'GPG Passphrase'
+    default: ''
+    required: false
+
+  token:
+    description: 'Personal access token required for authentication'
+    required: false
+  base_url:
+    description: 'Base URL of Mevisoft server for API requests execution'
+    required: false
+  base_path:
+    description: 'Path to your project directory on a local machine, without / at the beginning'
+    required: false
+
+runs:
+  using: docker
+  image: 'Dockerfile'
